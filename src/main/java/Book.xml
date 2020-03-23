@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- using set Property -->
+	<bean id="bookTitle" class="com.niit.springappdemo.Title">
+		<property name="titleValue" value="My First Spring Book">
+		</property>
+	</bean>
+
+
+	<!-- Using Constructor -->
+	<bean id="chapter1Title" class="com.niit.springappdemo.Title">
+		<constructor-arg>
+			<value>Spring FrameWork-Chapter1</value>
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="chapter2Title" class="com.niit.springappdemo.Title">
+		<constructor-arg>
+			<value>Spring FrameWork-Chapter 2</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- Associations Between Title and Chapter -->
+	<bean id="chapter1" class="com.niit.springappdemo.Chapter">
+		<property name="number"  value="1" />
+		<property name="content"
+			value="The Content of Chapter1 goest here" />
+		<!-- Object of Title Class -->
+		<property name="title">
+			<ref bean="chapter1Title"></ref>
+		</property>
+
+	</bean>
+
+
+	<!-- Association Between Title and Chapter using Constructor -->
+	<bean id="chapter2" class="com.niit.springappdemo.Chapter">
+
+		<constructor-arg index="0">
+			<value>2</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="chapter2Title"></ref>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>The Content of Chapter 2 goes here</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- BOOK BEAN STARTED -->
+	<bean id="myFirstSpringBook" class="com.niit.springappdemo.Book">
+		<property name="isbn" value="120034" />
+		<property name="author" value="Mr. JHONSON" />
+		<property name="title">
+			<ref bean="bookTitle"></ref>
+		</property>
+		<!-- Adding the Chapter Object in the List and Set as Chapters in Book 
+			Class -->
+		<property name="chapters">
+			<list>
+				<ref bean="chapter1"></ref>
+				<ref bean="chapter2"></ref>
+
+			</list>
+		</property>
+	</bean>
+
+</beans>
